@@ -59,8 +59,8 @@ public:
     void render(QQuickWindow *);
 
 private:
-    QScopedPointer<QMapboxGL> m_map;
-    QScopedPointer<QOpenGLFramebufferObject> m_fbo;
+    std::unique_ptr<QMapboxGL> m_map{};
+    std::unique_ptr<QOpenGLFramebufferObject> m_fbo{};
 };
 
 class QSGMapboxGLRenderNode : public QSGRenderNode
@@ -75,7 +75,7 @@ public:
     StateFlags changedStates() const override;
 
 private:
-    QScopedPointer<QMapboxGL> m_map;
+    std::unique_ptr<QMapboxGL> m_map{};
 };
 
 #endif // QSGMAPBOXGLNODE_H

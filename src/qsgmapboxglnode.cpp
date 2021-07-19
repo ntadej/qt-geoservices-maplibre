@@ -57,8 +57,8 @@ QSGMapboxGLTextureNode::QSGMapboxGLTextureNode(const QMapboxGLSettings &settings
 
     m_map.reset(new QMapboxGL(nullptr, settings, size.expandedTo(minTextureSize), pixelRatio));
 
-    QObject::connect(m_map.data(), &QMapboxGL::needsRendering, geoMap, &QGeoMap::sgNodeChanged);
-    QObject::connect(m_map.data(), &QMapboxGL::copyrightsChanged, geoMap,
+    QObject::connect(m_map.get(), &QMapboxGL::needsRendering, geoMap, &QGeoMap::sgNodeChanged);
+    QObject::connect(m_map.get(), &QMapboxGL::copyrightsChanged, geoMap,
             static_cast<void (QGeoMap::*)(const QString &)>(&QGeoMapMapboxGL::copyrightsChanged));
 }
 
@@ -115,7 +115,7 @@ void QSGMapboxGLTextureNode::render(QQuickWindow *window)
 
 QMapboxGL* QSGMapboxGLTextureNode::map() const
 {
-    return m_map.data();
+    return m_map.get();
 }
 
 // QSGMapboxGLRenderNode
@@ -124,14 +124,14 @@ QSGMapboxGLRenderNode::QSGMapboxGLRenderNode(const QMapboxGLSettings &settings, 
         : QSGRenderNode()
 {
     m_map.reset(new QMapboxGL(nullptr, settings, size, pixelRatio));
-    QObject::connect(m_map.data(), &QMapboxGL::needsRendering, geoMap, &QGeoMap::sgNodeChanged);
-    QObject::connect(m_map.data(), &QMapboxGL::copyrightsChanged, geoMap,
+    QObject::connect(m_map.get(), &QMapboxGL::needsRendering, geoMap, &QGeoMap::sgNodeChanged);
+    QObject::connect(m_map.get(), &QMapboxGL::copyrightsChanged, geoMap,
             static_cast<void (QGeoMap::*)(const QString &)>(&QGeoMapMapboxGL::copyrightsChanged));
 }
 
 QMapboxGL* QSGMapboxGLRenderNode::map() const
 {
-    return m_map.data();
+    return m_map.get();
 }
 
 void QSGMapboxGLRenderNode::render(const RenderState *state)
