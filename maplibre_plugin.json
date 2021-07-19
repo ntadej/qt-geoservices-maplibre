@@ -1,0 +1,11 @@
+{
+    "Keys": ["maplibre"],
+    "Provider": "maplibre",
+    "Version": 100,
+    "Experimental": false,
+    "Features": [
+        "OnlineMappingFeature",
+        "OfflineMappingFeature",
+        "LocalizedMappingFeature"
+    ]
+}

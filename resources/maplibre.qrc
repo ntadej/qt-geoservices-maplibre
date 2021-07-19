@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/maplibre">
+        <file>mapbox.png</file>
+    </qresource>
+</RCC>
