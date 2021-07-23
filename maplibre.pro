@@ -44,11 +44,11 @@ message("MapLibre-GL path: $$MBGL_PATH")
 
 INCLUDEPATH += $$MBGL_PATH/include
 LIBS_PRIVATE += -L$$MBGL_PATH/lib \
-    -lmbgl-vendor-csscolorparser \
-    -lmbgl-vendor-nunicode \
-    -lmbgl-vendor-parsedate \
-    -lmbgl-core \
-    -lqmapboxgl
+    -lQMapboxGL$$qtPlatformTargetSuffix() \
+    -lmbgl-core$$qtPlatformTargetSuffix() \
+    -lmbgl-vendor-nunicode$$qtPlatformTargetSuffix() \
+    -lmbgl-vendor-parsedate$$qtPlatformTargetSuffix() \
+    -lmbgl-vendor-csscolorparser$$qtPlatformTargetSuffix()
 
 qtConfig(icu) {
     QMAKE_USE_PRIVATE += icu
