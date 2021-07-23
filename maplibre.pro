@@ -1,8 +1,5 @@
 TARGET = qtgeoservices_maplibre
 
-QMAKE_CFLAGS += -Werror -Wno-non-c-typedef-for-linkage
-QMAKE_CXXFLAGS += -Werror -Wno-non-c-typedef-for-linkage
-
 QT += \
     quick-private \
     location-private \
