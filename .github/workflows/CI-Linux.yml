@@ -1,0 +1,77 @@
+name: Linux CI
+on: [push, workflow_dispatch]
+
+env:
+  QT_VERSION: 5.15.2
+
+jobs:
+  build-engine:
+    name: "Build maplibre-gl-native"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          path: source
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Download Qt
+        uses: jurplel/install-qt-action@v2
+        with:
+          version: ${{ env.QT_VERSION }}
+          dir: ${{ github.workspace }}
+          target: desktop
+
+      - name: Set up ccache
+        uses: hendrikmuhs/ccache-action@v1
+        with:
+          key: Linux-maplibre-gl-native
+
+      - name: Build maplibre-gl-native
+        uses: ./source/.github/actions/linux-builder
+        with:
+          build-type: library
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: maplibre-gl-native_Linux
+          path: install-gl
+
+  build-plugin:
+    name: "Build qt-geoservices-maplibre"
+    runs-on: ubuntu-latest
+    needs: build-engine
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          path: source
+          fetch-depth: 0
+
+      - name: Download Qt
+        uses: jurplel/install-qt-action@v2
+        with:
+          version: ${{ env.QT_VERSION }}
+          dir: ${{ github.workspace }}
+          target: desktop
+      
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: maplibre-gl-native_Linux
+          path: install-gl
+
+      - name: Build qt-geoservices-maplibre
+        uses: ./source/.github/actions/linux-builder
+        with:
+          build-type: plugin
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: qt-geoservices-maplibre_Linux
+          path: install/github/workspace/Qt/${{ env.QT_VERSION }}/gcc_64

@@ -40,7 +40,7 @@ load(qt_build_paths)
 message("MapLibre-GL path: $$MBGL_PATH")
 
 INCLUDEPATH += $$MBGL_PATH/include
-LIBS_PRIVATE += -L$$MBGL_PATH/lib \
+LIBS += -L$$MBGL_PATH/lib \
     -lQMapboxGL$$qtPlatformTargetSuffix() \
     -lmbgl-core$$qtPlatformTargetSuffix() \
     -lmbgl-vendor-nunicode$$qtPlatformTargetSuffix() \
