@@ -63,7 +63,7 @@ Androd also requires some specific flags
   -DANDROID_NATIVE_API_LEVEL=21 \
 ```
 
-## Building qt-geoservices-mapbox
+## Building qt-geoservices-mapblibre
 
 Run `qmake` passing the path to the `maplibre-gl-native` install location
 
